@@ -309,3 +309,10 @@ Este proyecto está bajo licencia MIT.
 Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para discutir cambios significativos.
 
 ---
+
+## Captura
+
+<img width="1284" height="872" alt="Captura de pantalla 2026-05-29 163457" src="https://github.com/user-attachments/assets/3504408e-30f0-48d6-8e31-7ba05f6ab964" />
+
+
+
