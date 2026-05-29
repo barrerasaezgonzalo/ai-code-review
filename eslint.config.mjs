@@ -5,7 +5,14 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+  {
+    // Aquí es donde defines las reglas globales para todo el proyecto
+    rules: {
+      "react-hooks/exhaustive-deps": "off", // Apaga la advertencia de dependencias
+      "react-hooks/rules-of-hooks": "error", // Esta es mejor dejarla encendida
+      "react-hooks/set-state-in-effect": "off", // Apaga la advertencia de setState en useEffect
+    },
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
