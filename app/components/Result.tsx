@@ -10,16 +10,28 @@ export function Result() {
   const { result, isLoading } = useStore();
   const [displayedResult, setDisplayedResult] = useState("");
   useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    let resetTimeout: NodeJS.Timeout | null = null;
+
     if (result) {
-      setDisplayedResult("");
-      let i = 0;
-      const interval = setInterval(() => {
-        setDisplayedResult(result.slice(0, i));
-        i++;
-        if (i > result.length) clearInterval(interval);
-      }, 10);
-      return () => clearInterval(interval);
+      // Reset displayed text asynchronously to avoid setState in effect
+      resetTimeout = setTimeout(() => {
+        setDisplayedResult("");
+        let i = 0;
+        interval = setInterval(() => {
+          setDisplayedResult(result.slice(0, i));
+          i++;
+          if (i > result.length && interval) {
+            clearInterval(interval);
+          }
+        }, 10);
+      }, 0);
     }
+
+    return () => {
+      if (resetTimeout) clearTimeout(resetTimeout);
+      if (interval) clearInterval(interval);
+    };
   }, [result]);
   return (
     <div className="col-span-1 md:col-span-5 flex flex-col">

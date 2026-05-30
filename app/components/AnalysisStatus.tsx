@@ -7,8 +7,9 @@ export function AnalysisStatus({ isLoading }: { isLoading: boolean }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    let messageInterval: NodeJS.Timeout;
-    let timerInterval: NodeJS.Timeout;
+    let messageInterval: NodeJS.Timeout | null = null;
+    let timerInterval: NodeJS.Timeout | null = null;
+    let resetTimeout: NodeJS.Timeout | null = null;
 
     if (isLoading) {
       messageInterval = setInterval(() => {
@@ -16,12 +17,16 @@ export function AnalysisStatus({ isLoading }: { isLoading: boolean }) {
       }, 5000);
       timerInterval = setInterval(() => setSeconds((s) => s + 1), 1000);
     } else {
-      setMessageIndex(0);
-      setSeconds(0);
+      resetTimeout = setTimeout(() => {
+        setMessageIndex(0);
+        setSeconds(0);
+      }, 0);
     }
+
     return () => {
-      clearInterval(messageInterval);
-      clearInterval(timerInterval);
+      if (messageInterval) clearInterval(messageInterval);
+      if (timerInterval) clearInterval(timerInterval);
+      if (resetTimeout) clearTimeout(resetTimeout);
     };
   }, [isLoading]);
 

@@ -23,8 +23,9 @@ export function Modes({ modes }: ModesProps) {
   };
 
   useEffect(() => {
-    let messageInterval: NodeJS.Timeout;
-    let timerInterval: NodeJS.Timeout;
+    let messageInterval: NodeJS.Timeout | null = null;
+    let timerInterval: NodeJS.Timeout | null = null;
+    let resetTimeout: NodeJS.Timeout | null = null;
 
     if (isLoading) {
       messageInterval = setInterval(() => {
@@ -35,13 +36,17 @@ export function Modes({ modes }: ModesProps) {
         setSeconds((s) => s + 1);
       }, 1000);
     } else {
-      setMessageIndex(0);
-      setSeconds(0);
+      // Reset asynchronously to avoid synchronous setState inside effect
+      resetTimeout = setTimeout(() => {
+        setMessageIndex(0);
+        setSeconds(0);
+      }, 0);
     }
 
     return () => {
-      clearInterval(messageInterval);
-      clearInterval(timerInterval);
+      if (messageInterval) clearInterval(messageInterval);
+      if (timerInterval) clearInterval(timerInterval);
+      if (resetTimeout) clearTimeout(resetTimeout);
     };
   }, [isLoading]);
 

@@ -15,7 +15,11 @@ export default function Home() {
         <Modes modes={modes} />
         <Result />
       </div>
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://github.com/barrerasaezgonzalo/ai-code-review.git"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <FaGithub size={24} className="mt-8" />
       </a>
     </div>

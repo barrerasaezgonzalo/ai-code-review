@@ -55,10 +55,10 @@ export const useStore = create((set) => ({
   mode: "explicacion",
   result: "",
   isLoading: false,
-  
+
   setCode: (newCode) => set({ code: newCode }),
   setMode: (newMode) => set({ mode: newMode }),
-  
+
   analyzeCode: async (code, mode) => {
     set({ isLoading: true, result: "Analizando..." });
     try {
@@ -82,6 +82,7 @@ export const useStore = create((set) => ({
 ```
 
 **Ventajas del enfoque:**
+
 - ✅ Acciones asincrónicas manejadas de forma elegante
 - ✅ Gestión de errores tipada (404 y excepciones)
 - ✅ Estados de carga explícitos para feedback al usuario
@@ -118,13 +119,14 @@ export function AnalysisStatus() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isLoading]); 
+  }, [isLoading]);
 
   return <div className="status">{isLoading ? "Analizando..." : "Listo"}</div>;
 }
 ```
 
 **Patrones clave:**
+
 - ✅ `clearInterval` en cleanup para evitar fugas de memoria
 - ✅ Uso de `useRef` para referencias persistentes
 - ✅ Callbacks funcionales para evitar closures anticuadas
@@ -133,17 +135,17 @@ export function AnalysisStatus() {
 
 ## 📦 Stack Tecnológico
 
-| Tecnología | Versión | Propósito |
-|-----------|---------|----------|
-| **Next.js** | 16.2.6 | Framework React con App Router y SSR |
-| **React** | 19.2.4 | Librería de componentes UI |
-| **TypeScript** | ^5 | Tipado estático y seguridad de tipos |
-| **Zustand** | ^5.0.14 | Gestión de estado ligera y performante |
-| **Tailwind CSS** | ^4 | Framework de estilos utilitarios |
-| **ESLint** | ^9 | Linting y calidad de código |
-| **React Markdown** | ^10.1.0 | Renderizado de Markdown en resultados |
-| **Rehype Highlight** | ^7.0.2 | Highlighting de código |
-| **Lucide React** | ^1.3.0 | Iconos modernos |
+| Tecnología           | Versión | Propósito                              |
+| -------------------- | ------- | -------------------------------------- |
+| **Next.js**          | 16.2.6  | Framework React con App Router y SSR   |
+| **React**            | 19.2.4  | Librería de componentes UI             |
+| **TypeScript**       | ^5      | Tipado estático y seguridad de tipos   |
+| **Zustand**          | ^5.0.14 | Gestión de estado ligera y performante |
+| **Tailwind CSS**     | ^4      | Framework de estilos utilitarios       |
+| **ESLint**           | ^9      | Linting y calidad de código            |
+| **React Markdown**   | ^10.1.0 | Renderizado de Markdown en resultados  |
+| **Rehype Highlight** | ^7.0.2  | Highlighting de código                 |
+| **Lucide React**     | ^1.3.0  | Iconos modernos                        |
 
 ---
 
@@ -188,7 +190,7 @@ ai-code-review/
 
 ### Requisitos Previos
 
-- Node.js 18+ 
+- Node.js 18+
 - npm o yarn
 
 ### Instalación
@@ -233,6 +235,7 @@ npm start
 Endpoint principal para análisis de código.
 
 **Request:**
+
 ```json
 {
   "code": "// Tu código aquí",
@@ -241,6 +244,7 @@ Endpoint principal para análisis de código.
 ```
 
 **Response (éxito):**
+
 ```json
 {
   "result": "Análisis detallado del código..."
@@ -248,6 +252,7 @@ Endpoint principal para análisis de código.
 ```
 
 **Errores Manejados:**
+
 - `404 NOT_FOUND`: Endpoint no disponible
 - `500 Server Error`: Error al procesar la solicitud
 - Excepciones generales: Capturadas y devuelto mensaje de error
@@ -292,6 +297,7 @@ catch (error) {
 ### DevTools de Next.js
 
 Utiliza las DevTools integradas:
+
 - `npm run dev` activa el servidor con hot-reload
 - Inspecciona componentes en React DevTools
 - Valida tipos con TypeScript en tiempo real
@@ -313,6 +319,3 @@ Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para
 ## Captura
 
 <img width="1284" height="872" alt="Captura de pantalla 2026-05-29 163457" src="https://github.com/user-attachments/assets/3504408e-30f0-48d6-8e31-7ba05f6ab964" />
-
-
-
