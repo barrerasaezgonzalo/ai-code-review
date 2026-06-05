@@ -1,27 +1,38 @@
 "use client";
-import { CodeInput } from "./components/CodeInput";
+import { useStore } from "../store/useStore";
+import { useRef } from "react";
+import { useOnClickOutside } from "./hooks/useOnClickOutside";
 import { Header } from "./components/Header";
-import { Modes } from "./components/Modes";
-import { Result } from "./components/Result";
-import { modes } from "./constants";
-import { FaGithub } from "react-icons/fa";
+import { CodeInput } from "./components/CodeInput";
+import Result from "./components/Result";
+import { Sidebar } from "./components/Sidebar";
+import DeleteModal from "./components/DeleteModal";
 
-export default function Home() {
+export default function Dashboard() {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const { isLoading, result, toggleHistory, isHistoryOpen, itemToDelete } =
+    useStore();
+
+  useOnClickOutside(sidebarRef, toggleHistory, isHistoryOpen);
+
   return (
-    <div className="mx-auto mt-8 mb-8 pb-8 w-full max-w-7xl rounded-3xl font-mono">
+    <div className="min-h-screen bg-[#0a0a0a] text-white p-6 md:p-12 font-mono ">
       <Header />
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-8">
         <CodeInput />
-        <Modes modes={modes} />
-        <Result />
+
+        <div className="col-span-12 lg:col-span-7 h-full overflow-hidden custom-scroll">
+          {!result && !isLoading ? (
+            <div className="h-full flex items-center justify-center border-2 border-dashed border-gray-800 rounded-2xl text-gray-600">
+              Esperando tu código.
+            </div>
+          ) : (
+            <Result />
+          )}
+        </div>
       </div>
-      <a
-        href="https://github.com/barrerasaezgonzalo/ai-code-review.git"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FaGithub size={24} className="mt-8" />
-      </a>
+      <Sidebar sidebarRef={sidebarRef} />
+      {itemToDelete && <DeleteModal />}
     </div>
   );
 }

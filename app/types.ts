@@ -1,28 +1,11 @@
-export interface ModesProps {
-  modes: Modes[];
-}
-
-export interface Modes {
+export type HistorialItem = {
   id: string;
-  label: string;
-  icon: React.ComponentType;
-  desc: string;
-}
-
-export interface ModeListProps {
-  m: {
-    id: string;
-    label: string;
-    icon: React.ComponentType;
-    desc: string;
+  timestamp: number;
+  inputCode: string;
+  result: {
+    explicacion: string;
+    codigo_sugerido: string;
+    complejidad_ciclomatica: number;
+    roast: string;
   };
-  isLoading: boolean;
-  setMode: (mode: string) => void;
-  currentMode: string;
-}
-
-export interface AnalyzeProps {
-  handleAnalyze: () => void;
-  isLoading: boolean;
-  isEmptyError: boolean;
-}
+};

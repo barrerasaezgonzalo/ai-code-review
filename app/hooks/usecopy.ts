@@ -1,11 +1,17 @@
 import { useState } from "react";
 
-export const useCopy = () => {
+export const useClipboard = (duration = 2000) => {
   const [copied, setCopied] = useState(false);
-  const handleCopy = (textToCopy: string) => {
-    navigator.clipboard.writeText(textToCopy);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), duration);
+    } catch (err) {
+      console.error("Error al copiar al portapapeles:", err);
+    }
   };
-  return { copied, handleCopy };
+
+  return { copied, copyToClipboard };
 };
